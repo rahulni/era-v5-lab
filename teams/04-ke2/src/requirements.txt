@@ -1,0 +1,9 @@
+# KE2 week 1, CPU only. Versions used for the committed results:
+#   python 3.13.5, torch 2.14.1+cpu, transformers 5.20.2, tokenizers 0.23.3, numpy 2.5.4
+# CPU torch: pip install torch --index-url https://download.pytorch.org/whl/cpu
+kronecker-embeddings==0.1.1
+torch>=2.0
+transformers>=4.40
+tokenizers>=0.15
+numpy>=1.23
+pytest>=7.0

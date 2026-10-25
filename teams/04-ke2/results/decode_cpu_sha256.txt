@@ -1,0 +1,7 @@
+# KE2 week 1: tokenizer.decode([id]) for every token id, on CPU, in three fresh processes.
+# Tokenizer: BrahmicTokenizer-131K, tokenizer.json sha256 01d968a7970b029c071b29f060abf6104b66168dedf2ff3b1a0290a545739fff, 131072 ids.
+# Hash: SHA-256 over each id in order: 4-byte little-endian length, then the decoded bytes.
+# The raw byte table, the tables, the encodes and the roundtrips are in determinism.json.
+ebf90e214d64b78074f974e923bce27cc96740672f91310963e88e60a6666a37  run1  PYTHONHASHSEED=0 torch_threads=1
+ebf90e214d64b78074f974e923bce27cc96740672f91310963e88e60a6666a37  run2  PYTHONHASHSEED=12345 torch_threads=4
+ebf90e214d64b78074f974e923bce27cc96740672f91310963e88e60a6666a37  run3  PYTHONHASHSEED=987654321 torch_threads=20

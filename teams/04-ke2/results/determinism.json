@@ -1,0 +1,125 @@
+{
+  "provenance": {
+    "tokenizer": {
+      "name": "BrahmicTokenizer-131K",
+      "repo": "theschoolofai/BrahmicTokenizer-131K",
+      "commit": "7dfcf398172c825c6689ad578e8b484ca5f57bc9",
+      "tokenizer_json_sha256": "01d968a7970b029c071b29f060abf6104b66168dedf2ff3b1a0290a545739fff",
+      "pinned": true,
+      "source": "sibling clone"
+    },
+    "kronecker_embeddings": {
+      "version": "0.1.1",
+      "codec_py_sha256": "d9613ac99f437ee8d309450eef3d3b43e729d1cbb780d835bf3a9b36353e516a",
+      "tokenizer_utils_py_sha256": "76a1a39391093207b8f043a9a8a542982c8eb60b04e1f3900675b40ef0e43bbd"
+    },
+    "python": "3.13.5",
+    "torch": "2.14.1+cpu",
+    "transformers": "5.20.2",
+    "tokenizers": "0.23.3",
+    "numpy": "2.5.4",
+    "unicode_version": "15.1.0",
+    "platform": "Windows 11",
+    "device": "cpu"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "pid": 16136,
+      "PYTHONHASHSEED": "0",
+      "torch_threads": 1,
+      "device": "cpu",
+      "token_ids_decoded": 131072,
+      "decode_seconds": 2.74,
+      "total_seconds": 165.92
+    },
+    {
+      "run": 2,
+      "pid": 28784,
+      "PYTHONHASHSEED": "12345",
+      "torch_threads": 4,
+      "device": "cpu",
+      "token_ids_decoded": 131072,
+      "decode_seconds": 2.62,
+      "total_seconds": 73.44
+    },
+    {
+      "run": 3,
+      "pid": 2440,
+      "PYTHONHASHSEED": "987654321",
+      "torch_threads": 20,
+      "device": "cpu",
+      "token_ids_decoded": 131072,
+      "decode_seconds": 2.63,
+      "total_seconds": 56.79
+    }
+  ],
+  "all_three_match": true,
+  "tables_match_manifest_and_roundtrip": true,
+  "hashes": {
+    "decode": {
+      "match": true,
+      "sha256": "ebf90e214d64b78074f974e923bce27cc96740672f91310963e88e60a6666a37"
+    },
+    "raw": {
+      "match": true,
+      "sha256": "b8deee450477defda7a4b4a27883e93fb0bc43f1c73e1f193495561c007b6f18"
+    },
+    "table:decode_P32": {
+      "match": true,
+      "sha256": "0700448b6bd090f4ee719fb24ad1845ca0e2c7a059ca80a240d489f1449ac6b3",
+      "equals_tables_manifest": true
+    },
+    "encode:decode_P32": {
+      "match": true,
+      "sha256": "24e29264bfbf8cabef082d876c33e22567235badfcb70692e858a34c55f10a65"
+    },
+    "roundtrip:decode_P32": {
+      "match": true,
+      "sha256": "0700448b6bd090f4ee719fb24ad1845ca0e2c7a059ca80a240d489f1449ac6b3",
+      "equals_table_hash": true
+    },
+    "table:decode_P64": {
+      "match": true,
+      "sha256": "3153c6ad2fdffcfad0029460dc5bbdc8eb00f564f5e80ab7e6e3830a958daed7",
+      "equals_tables_manifest": true
+    },
+    "encode:decode_P64": {
+      "match": true,
+      "sha256": "8bde978156be8739e52e66383e79d8dddac57a147a3210e43fe16dc6ae39b298"
+    },
+    "roundtrip:decode_P64": {
+      "match": true,
+      "sha256": "3153c6ad2fdffcfad0029460dc5bbdc8eb00f564f5e80ab7e6e3830a958daed7",
+      "equals_table_hash": true
+    },
+    "table:raw_P32": {
+      "match": true,
+      "sha256": "e80a43838479ef0ada6a95b9eb42f5b03c9f8ce066589dc30dbd505ad609a517",
+      "equals_tables_manifest": true
+    },
+    "encode:raw_P32": {
+      "match": true,
+      "sha256": "80613e190bbe19d7863a4968f2d2aa1213d661f6b132ebe4aef0336f36e3dd2c"
+    },
+    "roundtrip:raw_P32": {
+      "match": true,
+      "sha256": "e80a43838479ef0ada6a95b9eb42f5b03c9f8ce066589dc30dbd505ad609a517",
+      "equals_table_hash": true
+    },
+    "table:raw_P64": {
+      "match": true,
+      "sha256": "87c7d52dc303b9f73b5ed2ac1c499a0c72be8b8c065f6136940491e11e063288",
+      "equals_tables_manifest": true
+    },
+    "encode:raw_P64": {
+      "match": true,
+      "sha256": "a32fe23659171c874e140678cea9fd2dd093ff68a301754007050d1eb7effcdc"
+    },
+    "roundtrip:raw_P64": {
+      "match": true,
+      "sha256": "87c7d52dc303b9f73b5ed2ac1c499a0c72be8b8c065f6136940491e11e063288",
+      "equals_table_hash": true
+    }
+  }
+}
