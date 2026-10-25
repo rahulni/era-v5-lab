@@ -1,5 +1,9 @@
 # KE2 week 1: code
 
+**Start here:** `../docs/ke2_week1_explainer.html` explains the whole week, from the lab's ask to
+Gate 1, with step-by-step playgrounds on the real data. Download it and open it in any browser;
+it needs no install and works offline. The proof itself is `../docs/proof.md`.
+
 Proves the forward encode of Kronecker Embedding 2 and checks that each token has a unique code
 or a collision with a known cause. Everything runs on CPU. There is no new encoder code: the
 encoder is `kronecker_codec` from the kronecker-embeddings repository, with `pos_dim` = P
@@ -23,6 +27,7 @@ python teams/04-ke2/src/build_tables.py    # tables -> build/tables/, results/ta
 python teams/04-ke2/src/collisions.py      # results/collisions*.csv, collisions_summary.json      ~10 s
 python teams/04-ke2/src/proof_checks.py    # results/proof_checks.json (37 checks)                 ~4 min
 python teams/04-ke2/src/proof_figures.py   # docs/figures/*.svg, the figures of docs/proof.md      ~10 s
+python teams/04-ke2/src/build_explainer.py # docs/ke2_week1_explainer.html, refreshed in place     ~30 s
 python teams/04-ke2/src/determinism.py     # results/decode_cpu_sha256.txt, determinism.json      ~5 min
 pytest teams/04-ke2/tests -q               # 72 tests                                             ~1 min
 ```
@@ -36,6 +41,7 @@ Each script exits non-zero if its own check fails.
 | `build_tables.py` | Builds the decode table (`decode([id])`, the repo's current path) and the raw byte table (the fix) for P = 32 and P = 64 |
 | `collisions.py` | Groups ids with equal rows, gives each group a checked cause, and counts per script class |
 | `proof_checks.py` | Numerical checks for the cut rule, Lemma 1, Lemma 2 and Theorem 1 (`../docs/proof.md`) |
+| `build_explainer.py` | Refreshes `../docs/ke2_week1_explainer.html` from the results, the figures and the pinned tokenizer; refuses unless the embedded bytes match the recorded hashes |
 | `proof_figures.py` | Draws the 8 figures of `../docs/proof.md` from the codec's outputs, and stops if they disagree with Lemma 2 |
 | `synthetic.py` | Synthetic strings and a vocabulary with every collision cause planted, for cases real data never reaches |
 | `determinism.py` | Decodes every token id in three fresh CPU processes and compares the hashes |
