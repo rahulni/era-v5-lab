@@ -1,0 +1,151 @@
+doc_id,read,verdict,diseases,evidence,hex,note
+83dc5d60eaef6288,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip the StarCoder marker; 
+3a7b03b626595019,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip the StarCoder marker; 
+9f6e4e65e41f69c4,full,fix,B4;E4,"PII placeholders <NAME> at offsets 39, 1131, 3437 | MIT licence text, 22 lines, offsets 0-1107",,"PII placeholder: 3 x <NAME>, not personal data;fix = strip the MIT header"
+ab726af7ee73aa3b,full,fix,B4; F3,"PII placeholder <NAME> at offset 25 | abusive content 'Fuck you, user' in a comment at offset 314",,"PII placeholder: <NAME> in a 3-line copyright notice, not personal data; profanity 'Fuck you, user' in a comment at 314"
+6e1056d5d935abb7,full,clean,,,,
+a800be93ce443cb5,full,fix,B3;B4,StarCoder marker <gh_stars> at offset 0 | PII placeholder <NAME> at offset 29,,fix = strip the StarCoder marker; PII placeholder: <NAME>
+7095a5693a20f256,full,clean,,,,
+b6bbf20d0ad56939,full,fix,B3,StarCoder markers <reponame> at offset 0 and <filename> at offset 36,,
+9e059cbb0743aafd,full,fix,B3,StarCoder marker <filename> at offset 0,,"fix = strip line 1 (StarCoder metadata: marker + its value); 220 tab characters are indentation, not a disease (A2 excludes tab)"
+9195ba155f4ee31e,full,fix,E4,"Apache-2.0 licence header, 15 lines, offsets 0-628",,"fix = strip the Apache header; 56 tab characters are indentation, not a disease"
+7f334c23164cab22,full,clean,,,,
+0797d20110e8ab9b,full,fix,B3;B4; E4,"StarCoder markers <filename> at offset 0 and <gh_stars> at offset 54 | PII placeholders <EMAIL> at offsets 13499, 29911, 33100 | same 3-line Chromium notice from secound line",,"fix = strip line 1 (StarCoder metadata: markers + their values); PII placeholder: 3 x <EMAIL>, not personal data;"
+09b5f5db05cc311d,full,fix,A2;B3,"multiple  U+000D (CR) before each newline, offsets 61-818 (CRLF line endings) | StarCoder markers <reponame> at offset 0 and <gh_stars> at offset 26",61 U+000D CARRIAGE RETURN (29x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF and strip line 1 (StarCoder metadata: markers + their values)
+47cf08b1366662cd,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+4ac6624748e7453d,full,fix,B3; E4,StarCoder marker <filename> at offset 0 | LICENSE text from line 2,,fix = strip line 1 (StarCoder metadata: marker + its value); strip the LICENSE header
+c53cd9bbd7f21d64,full,clean,,,,
+65ab6b9b948ddac5,full,clean,,,,
+197d1c752010dd95,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+c4fdd2a6e18d381d,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value); mixed tab/space indentation is not a disease
+1a8174fb912f99bd,full,clean,,,,
+d5e1b337f212f4e2,full,fix,A2;B3;B4;E4,"386 x U+000D (CR) before each newline, offsets 105-12647 (CRLF, only the tag line has no CR) | StarCoder marker <reponame> at offset 0 | PII placeholders <NAME> at offsets 388, 987 | 38-line BSD-3 licence header at offsets 29-2058",105 U+000D CARRIAGE RETURN (386x),
+2bfaa545814cf99f,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+4b56881433ffb999,full,clean,,,,
+11edb16ce89987d8,full,fix,A2,"111 x U+000D (CR) before each newline, offsets 32-2744 (CRLF line endings)",32 U+000D CARRIAGE RETURN (111x),A2: the viewer shows each CR as a hidden character ; fix = CRLF to LF
+bef3145afd58e431,full,clean,,,,
+313a3773268cfc1e,full,fix,E4,LICENSE text in first 5 lines,,
+1a0cf949fc53a4a3,full,clean,,,,
+dc6a77d5a4a10f51,full,clean,,,,
+dc95b2b83b6a0252,full,fix,A2,"92 x U+000D (CR) before each newline, offsets 50-3278 (CRLF line endings)",50 U+000D CARRIAGE RETURN (92x),
+54bcee5f19fa5757,full,fix,B3;B4,"StarCoder marker <gh_stars> at offset 0 | PII placeholders <NAME> at offsets 1736, 4290",,
+8835e7c1785d8efd,full,fix,B3,StarCoder marker <filename> at offset 0,,
+0d97bb3b39c1bc35,full,clean,,,,
+7e5b148d47567cb4,full,clean,,,,
+4a03c8fb08a30888,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+467a6d2f40193dbe,full,clean,,,,some comments in French
+90f151f00f35f3c6,full,fix,B3;B4;E4,"StarCoder markers <reponame> at offset 0 and <gh_stars> at offset 34 | PII placeholder <NAME> at offset 547 | MIT licence in a bilingual english/Portuguese header, 34 lines, offsets 49-1720",,"fix = strip line 1 (StarCoder metadata: markers + their values) and the licence header; PII placeholder: <NAME>, not personal data; "
+5500ec7bf87b39ef,full,fix,B4,PII placeholders <NAME> at offset 146 and <EMAIL> at offset 154,,
+9efbbf17b146288f,full,drop,E1,"url path include/generated/animation/ marks it as generated code, the text has no generator marker",,"the path include/generated/ marks the code itself as generated (getter, setter and deserialize boilerplate per property key)"
+4b2fb55b5e1ab994,full,fix,B3,StarCoder marker <reponame> at offset 0,,
+52c5a9ce48bee35f,full,clean,,,,Vietnamese comments
+85a24f18489b0c88,full,fix,B3;E4,"StarCoder marker <filename> at offset 0 | ASF Apache-2.0 header, 18 lines, offsets 37-843",,fix = strip line 1 (StarCoder metadata: marker + its value) and the Apache header
+6301096d4cfe493b,full,fix,B4,"PII placeholders <NAME> at offsets 109, 10296",,"PII placeholder: 2 x <NAME>, not personal data;"
+aa2cbc848659e139,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value); 1-line MIT mention
+a315f10fa8bef198,full,clean,,,,
+b9eae27eae68df75,full,fix,B4,PII placeholder <NAME> at offset 41,,
+fbcdb3c190bce1bd,full,fix,A2,"32 x U+000D (CR) before each newline, offsets 34-799 (CRLF line endings)",34 U+000D CARRIAGE RETURN,A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF
+a2b016c8a5047a65,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+0e7684ba8014e8cb,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+2080912818f30638,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+ad620827909ed4c0,full,clean,,,,
+fedb077387bf867f,full,clean,,,,
+5c49153a96697f7f,full,fix,B3;B4,StarCoder marker <gh_stars> at offset 0 | PII placeholder <NAME> at offset 30,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholder: <NAME>, not personal data"
+9ccd3964d55706ee,full,fix,B3; F3,StarCoder marker <gh_stars> at offset 0 | abusive content 'WTF?' in a comment,,
+ec7001a1bc51ba1f,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+f0fc1aaca2693ed3,full,fix,B3;B4,"StarCoder marker <gh_stars> at offset 0 | PII placeholders <NAME> at offsets 64, 105",,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholder: 2 x <NAME>, not personal data"
+f3cee8feefb43b04,full,fix,B3;B4;E4,"StarCoder marker <gh_stars> at offset 0 | PII placeholders <NAME> at offsets 1935, 1959 and <EMAIL> at offsets 1943, 1967 | Sandia BSD-3 licence header, 41 lines, offsets 15-2060, its BSD clauses at the top of 17 pack docs",,"fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; PII placeholders: 2 x <NAME> and 2 x <EMAIL>, not personal data"
+e7ff9993a4964566,full,clean,,,,
+6c556a191861bb55,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+d04dc449fd0c763d,full,fix,B3;E4,"StarCoder marker <gh_stars> at offset 0 | OpenPegasus licence header with the MIT text, 30 lines, offsets 15-1706",,fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header
+782bc9665f0acdf7,full,fix,A1;B4;F1,U+FEFF (BOM) at offset 0 | PII placeholder <NAME> at offset 4 | student ID number at offset 21,,"fix = drop the BOM and the line-1 ID comment; hex left empty because the row has F1; PII placeholder: <NAME>, not personal data; university student ID of a private person; Bulgarian comments "
+8cb5695f092961e5,full,fix,E4,"ASF Apache-2.0 header, 16 lines, offsets 0-800",,fix = strip the Apache header
+83b177cffc2fc5d5,full,fix,B3;B4;E4,"StarCoder marker <filename> at offset 0 | PII placeholders <NAME> at offsets 199, 1836 | Willow Garage BSD-3 licence header, 33 lines, offsets 60-1821",,"fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; PII placeholder: 2 x <NAME>, not personal data"
+cba2e6821a431912,full,clean,,,,
+9f9b7e3a0e0143b4,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+74c99266ca895792,full,fix,B3;B4,StarCoder marker <reponame> at offset 0 | PII placeholders <NAME> at offset 199 and <EMAIL> at offset 207,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholders: <NAME> and <EMAIL>, not personal data"
+55aa88a58081bce0,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+c3727c2b04dba073,full,fix,B4,PII placeholder <NAME> at offset 12,,"PII placeholder: <NAME>, not personal data"
+de12a2fd152768d6,full,fix,A1,U+FEFF (BOM) at offset 0,0 U+FEFF ZERO WIDTH NO-BREAK SPACE,fix = drop the BOM; Chinese comments and UI strings correctly encoded
+bfa40f662fe0475d,full,clean,,,,
+51aa9142970a7f00,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+e64d073068d23612,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+46b1baa8b816d668,full,fix,B4;E4,"PII placeholder <NAME> at offset 155 | IncludeOS Apache-2.0 header, 16 lines, offsets 0-718",,"fix = strip the Apache header; PII placeholder: <NAME> in the copyright line, not personal data"
+1509ce37d4753335,full,clean,,,,Chinese conditions
+fca8a524984334d0,full,clean,,,,
+e52b2ae1f1f5874b,full,clean,,,,
+6c848e4e4e8a988b,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+331922297ce49863,full,clean,,,,
+71240f45c4870240,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+d778054df4a349e7,full,fix,A2;B3;B4,"104 x U+000D (CR) before each newline, offsets 91-2795 (CRLF, only the marker line has no CR) | StarCoder marker <gh_stars> at offset 0 | PII placeholder <NAME> at offset 119",91 U+000D CARRIAGE RETURN (104x),"A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF and strip line 1 (StarCoder metadata: marker + its value); PII placeholder: <NAME>, not personal data"
+6bede838b3a52f1c,full,fix,B3,StarCoder marker <reponame> at offset 0,,"fix = strip line 1 (StarCoder metadata: marker + its value); transactionId/cashierId are parameter names, not F1; no final newline but the last function closes"
+36150cd9bd35bdec,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+111a70b8b7230530,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+e20006f60b05fd63,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+ae16a3d6219862f9,full,clean,,,,
+3c6234d62bc02c3d,full,fix,E4,"HPCC Apache-2.0 header, 16 lines, offsets 0-782",,fix = strip the Apache header
+664c7c6d6c938cff,full,fix,A2;B3,"36 x U+000D (CR) before each newline, offsets 31-1236 (CRLF, only the marker line has no CR) | StarCoder marker <gh_stars> at offset 0",31 U+000D CARRIAGE RETURN (36x),A2: the viewer shows each CR as a hidden character; fix = CRLF to LF and strip line 1 (StarCoder metadata: marker + its value
+c35b0e60b77787b6,full,fix,B4;E4,"PII placeholders <PASSWORD> at offsets 7732, 8169 | Apache-2.0 header, 15 lines, offsets 0-587",,"fix = strip the Apache header; PII placeholder: 2 x <PASSWORD> (redacted defaults), not a secret; the mysql connect/query block repeated per table is natural code"
+f0de7546032334e6,full,fix,B3;E4,"StarCoder marker <reponame> at offset 0 | Caffe BSD licence header, 28 lines, offsets 26-1780",,fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; U+00A9 at 77 is a correctly encoded copyright sign
+c61fa4827af443d6,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+4fb8f1ec8cd8973d,full,fix,B3,StarCoder marker <gh_stars> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+6f186d796348dc32,full,fix,A2;B3,"84 x U+000D (CR) before each newline, offsets 62-2283 (CRLF, only the marker line has no CR) | StarCoder marker <filename> at offset 0",62 U+000D CARRIAGE RETURN (84x),A2: the viewer shows each CR as a hidden character ; fix = CRLF to LF and strip line 1 (StarCoder metadata: marker + its value); Romanian
+6d8df76acff62093,full,clean,,,,
+a283a8943ca1d402,full,fix,B3;B4,"StarCoder markers <reponame> at offset 0 and <gh_stars> at offset 21 | PII placeholders <NAME> at offsets 208, 216, 224",,"fix = strip line 1 (StarCoder metadata: markers + their values); PII placeholder: 3 x <NAME>, not personal data"
+d6fd72e115e08847,full,clean,,,,
+f63ec57866305825,full,drop,A1;E1;E4,"U+FEFF (BOM) at offset 0 | aws-sdk-cpp service model class: m_*HasBeenSet flag and ValueExists/With* block repeated per field from 850 to 6641, no generator header | AWS Apache-2.0 header, 14 lines, offsets 1-571, the Apache-2.0 notice is at the top of 40 pack docs",0 U+FEFF ZERO WIDTH NO-BREAK SPACE,judgement call under rule 3: the aws-sdk-cpp service model files (aws-cpp-sdk-*/source/model/) are code-generator output and the text follows the generator template field by field; drop because generated code cannot be fixed (as row 38); same call for row 148
+30bacfbae607bf17,full,clean,,,,
+8f54dfb4b9d18373,full,fix,B3;B4,StarCoder marker <filename> at offset 0 | PII placeholder <NAME> at offset 183,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholder: <NAME>, not personal data"
+de679cf725b4e409,full,clean,,,,
+21980c56f7c7f638,full,clean,,,,
+a67189e6272a2a92,full,fix,B4,PII placeholder <NAME> at offset 2790,,"PII placeholder: <NAME> in a developer note, not personal data"
+676d679afd2bf043,full,fix,A2;B4,"418 x U+000D (CR) before each newline, offsets 76-14925 (CRLF line endings) | PII placeholder <NAME> at offset 196",76 U+000D CARRIAGE RETURN (418x),"A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF; PII placeholder: <NAME>, not personal data"
+e3720007416cf1b9,full,drop,E1,"MonoNative test fixture:EST() stubs from 752 to 3133, each with an empty body under a '// Method/Property ",,
+a848c92f38ec0dde,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+a3256b38a3e5a8d1,full,fix,A2,"117 x U+000D (CR) before each newline, offsets 24-3885 (CRLF line endings)",24 U+000D CARRIAGE RETURN (117x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF
+7a113f1b110118ca,full,fix,B3;B4;E4,"StarCoder marker <filename> at offset 0 | PII placeholder <NAME> at offset 220 | PCL BSD licence header, 39 lines, offsets 89-1918",,"fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; PII placeholder: <NAME>, not personal data; the SVN $Id line at 1860 holds a username, not F1 (rule 6)"
+ce95799610d7c780,full,fix,B4;E4,"PII placeholder <NAME> at offset 28 | BSD-2 licence header, 22 lines, offsets 0-1358, its BSD clauses at the top of 17 pack docs",,"fix = strip the BSD header; PII placeholder: <NAME>, not personal data"
+160d51e1e088671c,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+08ffd8638e9d3541,full,fix,B4,PII placeholder <NAME> at offset 201,,"PII placeholder: <NAME>, not personal data"
+63376972d1ae1c2d,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+a1cd1ffdc253ec4d,full,fix,E4,"Plankton/UUV Simulator Apache-2.0 header, 20 lines, offsets 0-909",,fix = strip the Apache header
+3225c240d94860b9,full,fix,A2,"113 x U+000D (CR) before each newline, offsets 69-4034 (CRLF line endings)",69 U+000D CARRIAGE RETURN (113x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF; the 15-line MITK notice at 0-511 points to LICENSE.txt and is in no other pack doc
+d5561fdb1dbe8bb7,full,fix,B3;E4,"StarCoder marker <reponame> at offset 0 | Linux Foundation BSD licence header, 28 lines, offsets 56-1625",,fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; repeated 'return HWC2::Error::None
+35abb2ee3488366f,full,fix,B4,PII placeholder <NAME> at offset 18,,"PII placeholder: <NAME>, not personal data"
+0b429cc6ec95c20e,full,fix,B4,PII placeholder <NAME> at offset 163,,"PII placeholder: <NAME>, not personal data"
+080b20fc13d32e69,full,clean,,,,
+8f690c380ebc29f0,full,clean,,,,
+1ba987e9454983c5,full,fix,B3,StarCoder markers <reponame> at offset 0 and <filename> at offset 21,,fix = strip line 1 (StarCoder metadata: markers + their values); 3-line Chromium notice at 101-264 (its BSD-style pointer is in 18 pack docs)
+c985a73238d11350,full,clean,,,,
+323a66f9bd29c4c6,full,fix,A2,"73 x U+000D (CR) before each newline, offsets 25-1271 (CRLF line endings)",25 U+000D CARRIAGE RETURN (73x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF; no StarCoder markers
+6cd059a46f2c882b,full,fix,B3,StarCoder marker <reponame> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+e3961b6927e8feb5,full,fix,A2;B3,"45 x U+000D (CR) before each newline, offsets 82-1020 (CRLF, only the marker line has no CR) | StarCoder markers <filename> at offset 0 and <gh_stars> at offset 35",82 U+000D CARRIAGE RETURN (45x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF and strip line 1 (StarCoder metadata: markers + their values)
+fc6d66d5975e1a2a,full,clean,,,,
+d5f14e8f4e7792ab,full,fix,B3;B4;E4,"StarCoder marker <reponame> at offset 0 | PII placeholder <NAME> at offset 60 | RTAB-Map BSD-3 licence header, 26 lines, offsets 32-1592",,"fix = strip line 1 (StarCoder metadata: marker + its value) and the licence header; PII placeholder: <NAME>, not personal data"
+15d5d8f9e02835f9,full,fix,B3;B4,StarCoder marker <gh_stars> at offset 0 | PII placeholders <NAME> at offset 117 and <EMAIL> at offset 125,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholders: <NAME> and <EMAIL>, not personal data"
+282fadc4865524af,full,fix,A2,"36 x U+000D (CR) before each newline, offsets 19-629 (CRLF line endings)",19 U+000D CARRIAGE RETURN (36x),A2: the viewer shows each CR as a hidden character (rule 8); fix = CRLF to LF
+eceba95fe2984f57,full,clean,,,,
+59ad08116bcd5982,full,fix,B3;B4,StarCoder marker <gh_stars> at offset 0 | PII placeholders <NAME> at offset 207 and <EMAIL> at offset 300,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholders: <NAME> and <EMAIL> inside the About-screen strings, not personal data"
+3fab1abddc444f6b,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+34e9594c39fab26b,full,fix,E4,"UCSD CURE BSD-3 licence header, 30 lines, offsets 0-1566, its BSD clauses at the top of 17 pack docs",,fix = strip the BSD header
+df75c11ae4e76c49,full,fix,E4,"OpenJDK GPLv2 header, 23 lines, offsets 0-1058, a GNU GPL notice is at the top of 9 pack docs",,fix = strip the GPL header
+f7225bffdf7b7c7c,full,fix,B3,StarCoder markers <reponame> at offset 0 and <filename> at offset 24,,fix = strip line 1 (StarCoder metadata: markers + their values)
+a3febf57b2b94bbd,full,clean,,,,
+6b489d51cb39b92f,full,clean,,,,
+9cc0ebdd60b83cd3,full,fix,B3;E4,"StarCoder marker <filename> at offset 0 | Apollo Apache-2.0 header, 15 lines, offsets 73-844",,fix = strip line 1 (StarCoder metadata: marker + its value) and the Apache header
+17cd27765fca40ab,full,clean,,,,
+d96db2546a71ce92,full,fix,B3,"StarCoder markers <reponame> at offset 0, <filename> at offset 27 and <gh_stars> at offset 57",,fix = strip line 1 (StarCoder metadata: markers + their values)
+b80b05637c2bddf0,full,fix,B3;B4,StarCoder marker <filename> at offset 0 | PII placeholder <NAME> at offset 93,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholder: <NAME>, not personal data"
+f1a5a4984029e06c,full,clean,,,,
+6d7ba6d475e792a2,full,fix,E4,"Realm Apache-2.0 header, 17 lines, offsets 0-739, its Apache-2.0 text at the top of 40 pack docs",,fix = strip the Apache header
+3f18d35bdced665e,full,clean,,,,
+2a21578c998092bc,full,fix,B3;B4,StarCoder marker <gh_stars> at offset 0 | PII placeholder <NAME> at offset 36,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholder: <NAME>, not personal data"
+b9a553d5339506e4,full,fix,B3;B4,StarCoder marker <filename> at offset 0 | PII placeholders <NAME> at offset 170 and <EMAIL> at offset 177,,"fix = strip line 1 (StarCoder metadata: marker + its value); PII placeholders: <NAME> and <EMAIL>, not personal data; Turkish comments"
+e867651d550ea150,full,fix,B4,PII placeholder <EMAIL> at offset 460,,"PII placeholder: <EMAIL> in the ASCII-art title banner, not personal data"
+2dcc6abfa9896e81,full,fix,B3;B4;E4,"StarCoder markers <filename> at offset 0 and <gh_stars> at offset 35 | PII placeholders <NAME> at offsets 72, 111 and <EMAIL> at offsets 80, 119 | BSD-2 licence header, 26 lines, offsets 47-1407",,"fix = strip line 1 (StarCoder metadata: markers + their values) and the licence header; PII placeholders: 2 x <NAME> and 2 x <EMAIL>, not personal data"
+6cdc9866d4264258,full,fix,A1,U+FEFF (BOM) at offset 0,0 U+FEFF ZERO WIDTH NO-BREAK SPACE,fix = drop the BOM
+dd69a2fb87b40a39,full,fix,B3,StarCoder marker <filename> at offset 0,,fix = strip line 1 (StarCoder metadata: marker + its value)
+3ec4463d6223f126,full,fix,E4,"Bloomberg Apache-2.0 licence footer, 15 lines, offsets 19274-20031",,fix = strip the Apache footer
+a642d055aabf83be,full,drop,A1;E1,U+FEFF (BOM) at offset 0 | aws-sdk-cpp service model class: one ValueExists/Get* block per JSON field from 803 to 1467,0 U+FEFF ZERO WIDTH NO-BREAK SPACE,"judgement call under rule 3, same as row 95: aws-sdk-cpp service model files are code-generator output; drop because generated code cannot be fixed"
+634bd60b1280b551,full,fix,B4,PII placeholders <NAME> at offset 132 and <EMAIL> at offset 142,,"PII placeholders: <NAME> and <EMAIL>, not personal data"
+6985302658a4757d,full,fix,B3;B4;E4,"StarCoder marker <filename> at offset 0 | PII placeholders <NAME> at offset 76 and <EMAIL> at offset 84 | Apache-2.0 header, 15 lines, offsets 51-654",,"fix = strip line 1 (StarCoder metadata: marker + its value) and the Apache header; PII placeholders: <NAME> and <EMAIL>, not personal data"
