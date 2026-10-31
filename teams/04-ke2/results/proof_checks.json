@@ -1,432 +1,111 @@
 {
-  "provenance": {
-    "tokenizer": {
-      "name": "BrahmicTokenizer-131K",
-      "repo": "theschoolofai/BrahmicTokenizer-131K",
-      "commit": "7dfcf398172c825c6689ad578e8b484ca5f57bc9",
-      "tokenizer_json_sha256": "01d968a7970b029c071b29f060abf6104b66168dedf2ff3b1a0290a545739fff",
-      "pinned": true,
-      "source": "sibling clone"
+  "vocab": 131072,
+  "tokenizer_json_sha256": "01d968a7970b029c071b29f060abf6104b66168dedf2ff3b1a0290a545739fff",
+  "raw_table_sha256": "18c7f6a382fd6668ec73f56e589fbfbc13fec7c6ad5403a2d79ba6198ecc0d3c",
+  "special_tokens": 356,
+  "max_bytes": 32,
+  "max_bytes_ordinary": 32,
+  "max_bytes_special": 20,
+  "not_valid_utf8": 1306,
+  "not_valid_utf8_start_with_continuation": 197,
+  "not_valid_utf8_with_kannada_lead": 16,
+  "fffd_token_ids": [
+    99666
+  ],
+  "fed_equals_raw": 129766,
+  "P32_bf16_min_gap": 16.0,
+  "P32_raw": {
+    "longer_than_P": 0,
+    "cut_to_empty": 0,
+    "float32": {
+      "distinct_codes": 131072,
+      "distinct_cut_strings": 131072,
+      "partitions_equal": true
     },
-    "kronecker_embeddings": {
-      "version": "0.1.1",
-      "codec_py_sha256": "d9613ac99f437ee8d309450eef3d3b43e729d1cbb780d835bf3a9b36353e516a",
-      "tokenizer_utils_py_sha256": "76a1a39391093207b8f043a9a8a542982c8eb60b04e1f3900675b40ef0e43bbd"
+    "bfloat16": {
+      "distinct_codes": 131072,
+      "distinct_cut_strings": 131072,
+      "partitions_equal": true
     },
-    "python": "3.13.5",
-    "torch": "2.14.1+cpu",
-    "transformers": "5.20.2",
-    "tokenizers": "0.23.3",
-    "numpy": "2.5.4",
-    "unicode_version": "15.1.0",
-    "platform": "Windows 11",
-    "device": "cpu"
+    "groups": 0,
+    "unreachable": 0,
+    "largest": [],
+    "pair_causes": {}
   },
-  "all_pass": true,
-  "passed": 37,
-  "total": 37,
-  "elapsed_s": 244.5,
-  "checks": [
-    {
-      "id": "C0",
-      "statement": "cut rule: prefix; unchanged if short; at most P bytes; valid UTF-8 never emptied; idempotent; empty only for invalid input",
-      "scope": "P=32",
-      "pass": true,
-      "strings": 10004,
-      "longer_than_P": 8201,
-      "valid_longer_than_P": 4063,
-      "cut_to_empty": 4138,
-      "violations": 0,
-      "example_36_bytes_kept": 0
-    },
-    {
-      "id": "C0",
-      "statement": "cut rule: prefix; unchanged if short; at most P bytes; valid UTF-8 never emptied; idempotent; empty only for invalid input",
-      "scope": "P=64",
-      "pass": true,
-      "strings": 10004,
-      "longer_than_P": 6552,
-      "valid_longer_than_P": 3217,
-      "cut_to_empty": 3335,
-      "violations": 0,
-      "example_36_bytes_kept": 36
-    },
-    {
-      "id": "L1-a",
-      "statement": "kappa has exactly L nonzeros, each 1/sqrt(L), at {b_p*P+p}",
-      "scope": "decode_P32",
-      "pass": true,
-      "tokens": 131072,
-      "rows_wrong_support": 0,
-      "rows_wrong_value": 0
-    },
-    {
-      "id": "L1-a",
-      "statement": "kappa has exactly L nonzeros, each 1/sqrt(L), at {b_p*P+p}",
-      "scope": "decode_P64",
-      "pass": true,
-      "tokens": 131072,
-      "rows_wrong_support": 0,
-      "rows_wrong_value": 0
-    },
-    {
-      "id": "L1-a",
-      "statement": "kappa has exactly L nonzeros, each 1/sqrt(L), at {b_p*P+p}",
-      "scope": "raw_P32",
-      "pass": true,
-      "tokens": 131072,
-      "rows_wrong_support": 0,
-      "rows_wrong_value": 0
-    },
-    {
-      "id": "L1-a",
-      "statement": "kappa has exactly L nonzeros, each 1/sqrt(L), at {b_p*P+p}",
-      "scope": "raw_P64",
-      "pass": true,
-      "tokens": 131072,
-      "rows_wrong_support": 0,
-      "rows_wrong_value": 0
-    },
-    {
-      "id": "L1-b",
-      "statement": "<k(a),k(b)> = m(a,b)/sqrt(|a||b|)",
-      "scope": "raw_P32",
-      "pass": true,
-      "pairs": 200000,
-      "pairs_with_m_ge_2": 52314,
-      "max_abs_err": "1.34e-07"
-    },
-    {
-      "id": "L1-b",
-      "statement": "<k(a),k(b)> = m(a,b)/sqrt(|a||b|)",
-      "scope": "raw_P64",
-      "pass": true,
-      "pairs": 200000,
-      "pairs_with_m_ge_2": 52314,
-      "max_abs_err": "1.34e-07"
-    },
-    {
-      "id": "L2-a",
-      "statement": "mu=sqrt(L)/D, sigma_L=sqrt((1-L/D)/(D-1)), h_L>0>l_L, e(empty)=0",
-      "scope": "P=32",
-      "pass": true,
-      "lengths_checked": "0..32",
-      "D": 8192,
-      "max_rel_err_mu": "6.72e-08",
-      "max_rel_err_sigma": "6.72e-08",
-      "max_rel_err_h": "9.60e-08",
-      "max_rel_err_l": "1.91e-07",
-      "h_1": "90.4904",
-      "l_1": "-0.0110475",
-      "h_P": "15.9663",
-      "l_P": "-0.0626129",
-      "empty_is_zero": true
-    },
-    {
-      "id": "L2-a",
-      "statement": "mu=sqrt(L)/D, sigma_L=sqrt((1-L/D)/(D-1)), h_L>0>l_L, e(empty)=0",
-      "scope": "P=64",
-      "pass": true,
-      "lengths_checked": "0..64",
-      "D": 16384,
-      "max_rel_err_mu": "6.90e-08",
-      "max_rel_err_sigma": "6.90e-08",
-      "max_rel_err_h": "9.25e-08",
-      "max_rel_err_l": "1.66e-07",
-      "h_1": "127.976",
-      "l_1": "-0.0078115",
-      "h_P": "15.9662",
-      "l_P": "-0.0626125",
-      "empty_is_zero": true
-    },
-    {
-      "id": "L2-b",
-      "statement": "each code is two-valued (h_L on S, l_L off S) and {E>0} = S",
-      "scope": "decode_P32",
-      "pass": true,
-      "rows_not_two_valued": 0,
-      "rows_support_mismatch": 0,
-      "max_rel_err_h": "9.60e-08",
-      "max_rel_err_l": "1.91e-07",
-      "min_positive_entry": "15.9663",
-      "max_negative_entry": "-0.0110475"
-    },
-    {
-      "id": "L2-b",
-      "statement": "each code is two-valued (h_L on S, l_L off S) and {E>0} = S",
-      "scope": "decode_P64",
-      "pass": true,
-      "rows_not_two_valued": 0,
-      "rows_support_mismatch": 0,
-      "max_rel_err_h": "9.25e-08",
-      "max_rel_err_l": "1.66e-07",
-      "min_positive_entry": "22.6017",
-      "max_negative_entry": "-0.0078115"
-    },
-    {
-      "id": "L2-b",
-      "statement": "each code is two-valued (h_L on S, l_L off S) and {E>0} = S",
-      "scope": "raw_P32",
-      "pass": true,
-      "rows_not_two_valued": 0,
-      "rows_support_mismatch": 0,
-      "max_rel_err_h": "9.60e-08",
-      "max_rel_err_l": "1.91e-07",
-      "min_positive_entry": "15.9663",
-      "max_negative_entry": "-0.0110475"
-    },
-    {
-      "id": "L2-b",
-      "statement": "each code is two-valued (h_L on S, l_L off S) and {E>0} = S",
-      "scope": "raw_P64",
-      "pass": true,
-      "rows_not_two_valued": 0,
-      "rows_support_mismatch": 0,
-      "max_rel_err_h": "9.25e-08",
-      "max_rel_err_l": "1.66e-07",
-      "min_positive_entry": "22.6017",
-      "max_negative_entry": "-0.0078115"
-    },
-    {
-      "id": "L2-c",
-      "statement": "for every L: h_L >= 15.93, -0.0627 <= l_L < 0, gap h_L - l_L >= 15.99",
-      "scope": "P=32",
-      "pass": true,
-      "min_h": "15.9663",
-      "bound_h": "15.9351",
-      "max_l": "-0.0110475",
-      "min_l": "-0.0626129",
-      "bound_l": "-0.0626186",
-      "min_gap": "16.0289",
-      "bound_gap": "15.9976"
-    },
-    {
-      "id": "L2-c",
-      "statement": "for every L: h_L >= 15.93, -0.0627 <= l_L < 0, gap h_L - l_L >= 15.99",
-      "scope": "P=64",
-      "pass": true,
-      "min_h": "15.9662",
-      "bound_h": "15.935",
-      "max_l": "-0.0078115",
-      "min_l": "-0.0626125",
-      "bound_l": "-0.0626205",
-      "min_gap": "16.0288",
-      "bound_gap": "15.9975"
-    },
-    {
-      "id": "L2-d",
-      "statement": "decoders with threshold 0 and 8 recover every row, in float32 and after casting to bf16 and fp16",
-      "scope": "decode_P32",
-      "pass": true,
-      "tokens": 131072,
-      "mismatches": 0,
-      "decoders_checked": 6,
-      "min_h_bf16": "15.9375",
-      "max_l_bf16": "-0.0110474",
-      "min_h_fp16": "15.9688",
-      "max_l_fp16": "-0.0110474"
-    },
-    {
-      "id": "L2-d",
-      "statement": "decoders with threshold 0 and 8 recover every row, in float32 and after casting to bf16 and fp16",
-      "scope": "decode_P64",
-      "pass": true,
-      "tokens": 131072,
-      "mismatches": 0,
-      "decoders_checked": 6,
-      "min_h_bf16": "22.625",
-      "max_l_bf16": "-0.0078125",
-      "min_h_fp16": "22.6094",
-      "max_l_fp16": "-0.0078125"
-    },
-    {
-      "id": "L2-d",
-      "statement": "decoders with threshold 0 and 8 recover every row, in float32 and after casting to bf16 and fp16",
-      "scope": "raw_P32",
-      "pass": true,
-      "tokens": 131072,
-      "mismatches": 0,
-      "decoders_checked": 6,
-      "min_h_bf16": "15.9375",
-      "max_l_bf16": "-0.0110474",
-      "min_h_fp16": "15.9688",
-      "max_l_fp16": "-0.0110474"
-    },
-    {
-      "id": "L2-d",
-      "statement": "decoders with threshold 0 and 8 recover every row, in float32 and after casting to bf16 and fp16",
-      "scope": "raw_P64",
-      "pass": true,
-      "tokens": 131072,
-      "mismatches": 0,
-      "decoders_checked": 6,
-      "min_h_bf16": "22.625",
-      "max_l_bf16": "-0.0078125",
-      "min_h_fp16": "22.6094",
-      "max_l_fp16": "-0.0078125"
-    },
-    {
-      "id": "L2-e",
-      "statement": "threshold 8 survives noise up to 7.9 per entry; the sign rule only up to |l_1|",
-      "scope": "raw_P32",
-      "pass": true,
-      "codes": 2000,
-      "l1": "0.0110475",
-      "threshold_8_at_7.9": 0,
-      "threshold_8_at_0.05": 0,
-      "sign_rule_at_0.9_l1": 0,
-      "sign_rule_at_0.05": 1990
-    },
-    {
-      "id": "L2-e",
-      "statement": "threshold 8 survives noise up to 7.9 per entry; the sign rule only up to |l_1|",
-      "scope": "raw_P64",
-      "pass": true,
-      "codes": 2000,
-      "l1": "0.0078115",
-      "threshold_8_at_7.9": 0,
-      "threshold_8_at_0.05": 0,
-      "sign_rule_at_0.9_l1": 0,
-      "sign_rule_at_0.05": 2000
-    },
-    {
-      "id": "T1-a",
-      "statement": "D(E_P(t)) == T_P(t) for every token id (threshold 8)",
-      "scope": "decode_P32",
-      "pass": true,
-      "tokens": 131072,
-      "decode_mismatches": 0,
-      "ill_formed_codes": 0
-    },
-    {
-      "id": "T1-a",
-      "statement": "D(E_P(t)) == T_P(t) for every token id (threshold 8)",
-      "scope": "decode_P64",
-      "pass": true,
-      "tokens": 131072,
-      "decode_mismatches": 0,
-      "ill_formed_codes": 0
-    },
-    {
-      "id": "T1-a",
-      "statement": "D(E_P(t)) == T_P(t) for every token id (threshold 8)",
-      "scope": "raw_P32",
-      "pass": true,
-      "tokens": 131072,
-      "decode_mismatches": 0,
-      "ill_formed_codes": 0
-    },
-    {
-      "id": "T1-a",
-      "statement": "D(E_P(t)) == T_P(t) for every token id (threshold 8)",
-      "scope": "raw_P64",
-      "pass": true,
-      "tokens": 131072,
-      "decode_mismatches": 0,
-      "ill_formed_codes": 0
-    },
-    {
-      "id": "T1-b",
-      "statement": "ids with bit-identical codes == ids with identical table rows",
-      "scope": "decode_P32",
-      "pass": true,
+  "P32_decode": {
+    "longer_than_P": 0,
+    "cut_to_empty": 0,
+    "float32": {
       "distinct_codes": 129931,
-      "distinct_rows": 129931,
+      "distinct_cut_strings": 129931,
       "partitions_equal": true
     },
-    {
-      "id": "T1-b",
-      "statement": "ids with bit-identical codes == ids with identical table rows",
-      "scope": "decode_P64",
-      "pass": true,
+    "bfloat16": {
       "distinct_codes": 129931,
-      "distinct_rows": 129931,
+      "distinct_cut_strings": 129931,
       "partitions_equal": true
     },
-    {
-      "id": "T1-b",
-      "statement": "ids with bit-identical codes == ids with identical table rows",
-      "scope": "raw_P32",
-      "pass": true,
-      "distinct_codes": 131072,
-      "distinct_rows": 131072,
-      "partitions_equal": true
-    },
-    {
-      "id": "T1-b",
-      "statement": "ids with bit-identical codes == ids with identical table rows",
-      "scope": "raw_P64",
-      "pass": true,
-      "distinct_codes": 131072,
-      "distinct_rows": 131072,
-      "partitions_equal": true
-    },
-    {
-      "id": "T1-c",
-      "statement": "decode(t) == raw(t).decode('utf-8','replace') for every id",
-      "scope": "all ids",
-      "pass": true,
-      "tokens": 131072,
-      "ids_where_decode_differs_from_raw": 1306,
-      "ids_violating": 0
-    },
-    {
-      "id": "T1-d",
-      "statement": "all byte strings of length <= 2: D(e_P(b)) == b, codes pairwise distinct",
-      "scope": "P=32",
-      "pass": true,
-      "strings": 65793,
-      "decode_mismatches": 0,
-      "distinct_codes": 65793
-    },
-    {
-      "id": "T1-d",
-      "statement": "all byte strings of length <= 2: D(e_P(b)) == b, codes pairwise distinct",
-      "scope": "P=64",
-      "pass": true,
-      "strings": 65793,
-      "decode_mismatches": 0,
-      "distinct_codes": 65793
-    },
-    {
-      "id": "T1-e",
-      "statement": "raw table: no truncation, no duplicate raw strings => every token id has a unique code",
-      "scope": "raw_P32",
-      "pass": true,
-      "tokens": 131072,
-      "max_raw_length": 32,
-      "tokens_truncated": 0,
-      "duplicate_raw_strings": 0,
-      "distinct_rows": 131072
-    },
-    {
-      "id": "T1-e",
-      "statement": "raw table: no truncation, no duplicate raw strings => every token id has a unique code",
-      "scope": "raw_P64",
-      "pass": true,
-      "tokens": 131072,
-      "max_raw_length": 32,
-      "tokens_truncated": 0,
-      "duplicate_raw_strings": 0,
-      "distinct_rows": 131072
-    },
-    {
-      "id": "T1-f",
-      "statement": "synthetic vocabulary, all five causes planted: equal codes = equal rows, every group gets its planted, checked cause",
-      "scope": "P=32",
-      "pass": true,
-      "tokens": 1724,
-      "causes_found": "CUT_TO_EMPTY DUPLICATE_BYTES EMPTY TRUNCATION_P UTF8_REPLACEMENT",
-      "problems": 0
-    },
-    {
-      "id": "T1-f",
-      "statement": "synthetic vocabulary, all five causes planted: equal codes = equal rows, every group gets its planted, checked cause",
-      "scope": "P=64",
-      "pass": true,
-      "tokens": 1724,
-      "causes_found": "CUT_TO_EMPTY DUPLICATE_BYTES EMPTY TRUNCATION_P UTF8_REPLACEMENT",
-      "problems": 0
+    "groups": 10,
+    "unreachable": 1141,
+    "largest": [
+      658,
+      396,
+      82,
+      3,
+      2
+    ],
+    "pair_causes": {
+      "bad_bytes_in": 297693
     }
-  ]
+  },
+  "P64_bf16_min_gap": 16.0,
+  "P64_raw": {
+    "longer_than_P": 0,
+    "cut_to_empty": 0,
+    "float32": {
+      "distinct_codes": 131072,
+      "distinct_cut_strings": 131072,
+      "partitions_equal": true
+    },
+    "bfloat16": {
+      "distinct_codes": 131072,
+      "distinct_cut_strings": 131072,
+      "partitions_equal": true
+    },
+    "groups": 0,
+    "unreachable": 0,
+    "largest": [],
+    "pair_causes": {}
+  },
+  "P64_decode": {
+    "longer_than_P": 0,
+    "cut_to_empty": 0,
+    "float32": {
+      "distinct_codes": 129931,
+      "distinct_cut_strings": 129931,
+      "partitions_equal": true
+    },
+    "bfloat16": {
+      "distinct_codes": 129931,
+      "distinct_cut_strings": 129931,
+      "partitions_equal": true
+    },
+    "groups": 10,
+    "unreachable": 1141,
+    "largest": [
+      658,
+      396,
+      82,
+      3,
+      2
+    ],
+    "pair_causes": {
+      "bad_bytes_in": 297693
+    }
+  },
+  "env": {
+    "torch": "2.14.1",
+    "tokenizers": "0.23.3",
+    "kronecker_embeddings": "0.1.1"
+  }
 }

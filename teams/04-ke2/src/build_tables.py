@@ -1,89 +1,120 @@
-"""
-Build the decode table and the raw byte table for P = 32 and P = 64.
+#!/usr/bin/env python3
+"""Build the KE2 decode and raw byte tables for BrahmicTokenizer-131K.
 
-  decode table   tokenizer.decode([id]) through the repo's token_id_to_bytes.
-                 This is what the repo feeds the codec today. Known issue:
-                 a token that holds part of a character decodes to U+FFFD,
-                 so all such tokens share one code.
-  raw table      the token's true bytes from its vocab piece (decode_ref).
-                 This fixes the issue: every raw row is distinct.
+* **decode** table: upstream behaviour (``decode([id])`` then UTF-8). Tokens holding part of a
+  character become U+FFFD and share one code. Kept as the baseline.
+* **raw** table: the fix. Exact token bytes from the inverted GPT-2 ByteLevel alphabet.
 
-Each table maps token id -> at most P bytes (repo utf8_safe_truncate), in the
-repo's layout: byte_buffer (V, P) uint8, length_buffer (V,) int16. Pass the raw
-pair to KroneckerEmbedding(byte_buffer=..., length_buffer=...) to use it.
+Both are built for every P (default 32 and 64) and saved as compressed ``.npz`` (``bytes`` uint8
+``(V, P)``, ``lengths`` int16 ``(V,)``) with a ``manifest.json`` of SHA-256 fingerprints.
+The logic lives in the ``ke2`` package; this file is the command line and keeps the names other
+code imports from it.
 
-Outputs:
-  build/tables/{decode,raw}_P{32,64}.npz   the tables (generated, not committed)
-  results/tables_manifest.json             sha256 and stats per table, and the
-                                           check that the decode table equals
-                                           the repo's build_byte_buffer
+Usage
+-----
+    python build_tables.py [--tokenizer PATH_OR_HF_ID] [--out DIR] [--pos-dims 32 64] [--allow-download]
 
-Run from the lab repo root:  python teams/04-ke2/src/build_tables.py
+Without ``--tokenizer`` the tokenizer is found via ``$KE2_TOKENIZER``, ``$BRAHMIC_TOKENIZER_DIR``,
+then the Hugging Face cache at the pinned revision.
 """
 
 from __future__ import annotations
 
-import time
+import argparse
+import logging
+import sys
+from collections.abc import Sequence
+from pathlib import Path
 
-import numpy as np
+if __package__ in (None, ""):  # run as a script: make the ke2 package importable
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import ke2_common as C
-from kronecker_embeddings import build_byte_buffer
+from ke2.codec import encode_ids as ke2_encode
+from ke2.codec import output_dim as ke2_output_dim
+from ke2.codec import read_support
+from ke2.config import CHAR_DIM, HF_ID, POS_DIMS, TABLES_DIR
+from ke2.hashing import sha256_file
+from ke2.script_class import classify_vocab, script_class
+from ke2.tables import (
+    TABLE_FORMAT_VERSION,
+    ByteTable,
+    TableContractError,
+    build_all,
+    build_decode_table,
+    build_raw_table,
+    load_table,
+    table_path,
+)
+from ke2.tokenizer import (
+    BYTE_TO_UNI,
+    U_FFFD,
+    UNI_TO_BYTE,
+    TokenizerBundle,
+    VocabHoleError,
+    decode_bytes_for_id,
+    gpt2_bytes_to_unicode,
+    load_tokenizer,
+    piece_to_raw_bytes,
+    raw_bytes_for_id,
+    resolve_tokenizer_path,
+)
+from ke2.truncation import continuation_truncate as utf8_safe_truncate
+
+__all__ = [
+    "BYTE_TO_UNI",
+    "CHAR_DIM",
+    "HF_ID",
+    "POS_DIMS",
+    "TABLE_FORMAT_VERSION",
+    "UNI_TO_BYTE",
+    "U_FFFD",
+    "ByteTable",
+    "TableContractError",
+    "TokenizerBundle",
+    "VocabHoleError",
+    "build_all",
+    "build_decode_table",
+    "build_raw_table",
+    "classify_vocab",
+    "decode_bytes_for_id",
+    "gpt2_bytes_to_unicode",
+    "ke2_decode_vector",
+    "ke2_encode",
+    "ke2_output_dim",
+    "load_table",
+    "load_tokenizer",
+    "main",
+    "piece_to_raw_bytes",
+    "raw_bytes_for_id",
+    "resolve_tokenizer_path",
+    "script_class",
+    "sha256_file",
+    "table_path",
+    "utf8_safe_truncate",
+]  # fmt: skip
 
 
-def build_all(tok):
-    """Return {kind: full byte list} and {(kind, P): (buf, lens)} for the four tables."""
-    full = {kind: C.full_bytes(tok, kind) for kind in C.KINDS}
-    tables = {(kind, P): C.make_table(full[kind], P) for kind in C.KINDS for P in C.P_VALUES}
-    return full, tables
+def ke2_decode_vector(vec, pos_dim: int, char_dim: int = CHAR_DIM) -> bytes:
+    """Recover the bytes from one KE2 vector (Lemma 1). Kept for callers of the original script."""
+    if len(vec) != char_dim * pos_dim:
+        raise ValueError(f"expected D={char_dim * pos_dim}, got {len(vec)}")
+    return read_support(vec, pos_dim)
 
 
-def main() -> int:
-    t0 = time.time()
-    tok = C.load_tokenizer()
-    V = C.vocab_size(tok)
-    specials = C.special_ids(tok)
-    full, tables = build_all(tok)
-    print(f"{C.TOKENIZER_NAME}: V={V}, special tokens={len(specials)}")
+def main(argv: Sequence[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--tokenizer", default=None, help="path to tokenizer.json or its folder, or an HF id")
+    ap.add_argument("--out", type=Path, default=TABLES_DIR, help="output directory for the .npz tables")
+    ap.add_argument("--pos-dims", type=int, nargs="+", default=list(POS_DIMS))
+    ap.add_argument("--allow-download", action="store_true", help="fetch the tokenizer from the HF Hub if needed")
+    a = ap.parse_args(argv)
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    C.TABLES.mkdir(parents=True, exist_ok=True)
-    manifest = {"provenance": C.provenance(), "vocab_size": V, "special_tokens": len(specials), "tables": {}}
-    for P in C.P_VALUES:
-        repo_buf, repo_lens = build_byte_buffer(tok, pos_dim=P)
-        for kind in C.KINDS:
-            buf, lens = tables[(kind, P)]
-            full_len = np.array([len(b) for b in full[kind]], dtype=np.int32)
-            np.savez_compressed(C.table_path(kind, P), byte_buffer=buf, length_buffer=lens, full_length=full_len)
-            rows = C.table_rows(buf, lens)
-            info = {
-                "file": f"build/tables/{C.table_path(kind, P).name}",
-                "shape": {"byte_buffer": list(buf.shape), "length_buffer": list(lens.shape)},
-                "dtype": {"byte_buffer": "uint8", "length_buffer": "int16"},
-                "sha256": C.sha256_table(buf, lens),
-                "distinct_rows": len(set(rows)),
-                "ids_sharing_a_row": V - len(set(rows)),
-                "rows_with_u_fffd": sum(C.U_FFFD in r for r in rows),
-                "n_truncated": int((full_len > lens).sum()),
-                "n_empty": int((lens == 0).sum()),
-                "max_full_length": int(full_len.max()),
-            }
-            if kind == "decode":
-                info["matches_repo_build_byte_buffer"] = bool(
-                    np.array_equal(buf, repo_buf.numpy()) and np.array_equal(lens, repo_lens.numpy()))
-            manifest["tables"][f"{kind}_P{P}"] = info
-            print(f"  {kind}_P{P}: distinct={info['distinct_rows']} sharing={info['ids_sharing_a_row']} "
-                  f"truncated={info['n_truncated']} sha256={info['sha256'][:16]}"
-                  + (f" repo_match={info['matches_repo_build_byte_buffer']}" if kind == "decode" else ""))
-
-    manifest["full_sha256"] = {k: C.sha256_bytes_list(v) for k, v in full.items()}
-    classes = [C.script_class(b, i in specials) for i, b in enumerate(full["raw"])]
-    manifest["script_class_counts"] = {s: classes.count(s) for s in C.ordered_classes(classes)}
-    manifest["elapsed_s"] = round(time.time() - t0, 1)
-    C.write_json(C.RESULTS / "tables_manifest.json", manifest)
-    print(f"wrote {C.TABLES} and results/tables_manifest.json ({manifest['elapsed_s']} s)")
-    ok = all(t.get("matches_repo_build_byte_buffer", True) for t in manifest["tables"].values())
-    return 0 if ok else 1
+    tb = load_tokenizer(a.tokenizer, allow_download=a.allow_download)
+    logging.info("tokenizer: %s (V=%d, sha256=%s…)", tb.path.name, tb.vocab_size, tb.sha256[:12])
+    build_all(tb, a.out, a.pos_dims)
+    return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())

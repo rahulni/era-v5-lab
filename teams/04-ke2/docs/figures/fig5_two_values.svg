@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="452" viewBox="0 0 1000 452" role="img" aria-label="The two values of a normalized code for every token length, at P = 32 and P = 64">
-<title>The two values of a normalized code for every token length, at P = 32 and P = 64</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="452" viewBox="0 0 1000 452" role="img" aria-label="The two values of a normalized code for every string length, at P = 32 and P = 64">
+<title>The two values of a normalized code for every string length, at P = 32 and P = 64</title>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3f5260"/></marker></defs>
 <rect x="0.5" y="0.5" width="999" height="451" rx="12" fill="#ffffff" stroke="#d8e0e4"/>
-<text x="24.0" y="30.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="17" font-weight="700" fill="#0f2230" text-anchor="start">Lemma 2: every code has just two values, and they depend only on the token length L</text>
-<text x="34.0" y="70.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="14.5" font-weight="700" fill="#0f2230" text-anchor="start">On each of the L marks: h(L)</text>
+<text x="24.0" y="30.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="17" font-weight="700" fill="#0f2230" text-anchor="start">Lemma 1, step 3: every code has just two values, set by the string length L</text>
+<text x="34.0" y="70.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="14.5" font-weight="700" fill="#0f2230" text-anchor="start">On each of the L lit cells: h(L)</text>
 <line x1="84.0" y1="330.0" x2="470.0" y2="330.0" stroke="#e6ecef" stroke-width="1"/>
 <text x="76.0" y="334.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="end">0</text>
 <line x1="84.0" y1="296.0" x2="470.0" y2="296.0" stroke="#e6ecef" stroke-width="1"/>
@@ -30,13 +30,13 @@
 <text x="421.0" y="348.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="middle">56</text>
 <text x="470.0" y="348.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="middle">64</text>
 <line x1="84.0" y1="330.0" x2="470.0" y2="330.0" stroke="#b7c4cb" stroke-width="1.2"/>
-<text x="277.0" y="368.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="middle">token length L (bytes)</text>
+<text x="277.0" y="368.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="middle">string length L (bytes)</text>
 <line x1="84.0" y1="302.9" x2="470.0" y2="302.9" stroke="#b42318" stroke-width="1.6" stroke-dasharray="6 4"/>
 <line x1="261.7" y1="115.2" x2="283.7" y2="115.2" stroke="#b42318" stroke-width="1.6" stroke-dasharray="6 4"/>
 <text x="289.7" y="119.2" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#b42318" text-anchor="start">floor 15.93, for every L</text>
 <line x1="84.0" y1="316.4" x2="470.0" y2="316.4" stroke="#0a8a0a" stroke-width="1.6" stroke-dasharray="6 4"/>
 <line x1="261.7" y1="139.0" x2="283.7" y2="139.0" stroke="#0a8a0a" stroke-width="1.6" stroke-dasharray="6 4"/>
-<text x="289.7" y="143.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#0a8a0a" text-anchor="start">threshold 8</text>
+<text x="289.7" y="143.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#0a8a0a" text-anchor="start">a fixed cut-off of 8</text>
 <polyline points="84.0,176.17 90.1,221.23 96.3,241.19 102.4,253.10 108.5,261.22 114.6,267.22 120.8,271.88 126.9,275.63 133.0,278.75 139.1,281.38 145.3,283.65 151.4,285.62 157.5,287.37 163.7,288.92 169.8,290.31 175.9,291.58 182.0,292.73 188.2,293.78 194.3,294.75 200.4,295.64 206.5,296.47 212.7,297.24 218.8,297.97 224.9,298.64 231.0,299.28 237.2,299.88 243.3,300.44 249.4,300.98 255.6,301.48 261.7,301.96 267.8,302.42 273.9,302.86" fill="none" stroke="#2a78d6" stroke-width="2.2"/>
 <circle cx="84.0" cy="176.2" r="2.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0.5"/>
 <circle cx="90.1" cy="221.2" r="2.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0.5"/>
@@ -138,7 +138,7 @@
 <circle cx="120.8" cy="271.9" r="6.5" fill="none" stroke="#0f2230" stroke-width="1.6"/>
 <circle cx="102.4" cy="253.1" r="6.5" fill="none" stroke="#0f2230" stroke-width="1.6"/>
 <text x="34.0" y="392.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="600" fill="#0f2230" text-anchor="start">Ringed at P = 32: A (L = 7) 34.19, and B, C (L = 4) 45.24</text>
-<text x="534.0" y="70.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="14.5" font-weight="700" fill="#0f2230" text-anchor="start">On every other entry: ℓ(L)</text>
+<text x="534.0" y="70.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="14.5" font-weight="700" fill="#0f2230" text-anchor="start">On every other cell: u(L)</text>
 <line x1="584.0" y1="330.0" x2="970.0" y2="330.0" stroke="#e6ecef" stroke-width="1"/>
 <text x="576.0" y="334.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="end">−0.07</text>
 <line x1="584.0" y1="298.3" x2="970.0" y2="298.3" stroke="#e6ecef" stroke-width="1"/>
@@ -165,9 +165,9 @@
 <text x="921.0" y="348.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="middle">56</text>
 <text x="970.0" y="348.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11" font-weight="400" fill="#667884" text-anchor="middle">64</text>
 <line x1="584.0" y1="330.0" x2="970.0" y2="330.0" stroke="#b7c4cb" stroke-width="1.2"/>
-<text x="777.0" y="368.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="middle">token length L (bytes)</text>
+<text x="777.0" y="368.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="middle">string length L (bytes)</text>
 <line x1="584.0" y1="107.9" x2="970.0" y2="107.9" stroke="#b42318" stroke-width="1.6" stroke-dasharray="6 4"/>
-<text x="590.0" y="101.9" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#b42318" text-anchor="start">0, the sign rule&#x27;s threshold</text>
+<text x="590.0" y="101.9" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#b42318" text-anchor="start">0, the sign rule&#x27;s cut-off</text>
 <line x1="584.0" y1="306.6" x2="970.0" y2="306.6" stroke="#b42318" stroke-width="1.6" stroke-dasharray="6 4"/>
 <text x="590.0" y="321.6" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="11.5" font-weight="700" fill="#b42318" text-anchor="start">floor −0.0627, for every L</text>
 <polyline points="584.0,142.92 590.1,157.45 596.3,168.60 602.4,177.99 608.5,186.28 614.6,193.77 620.8,200.65 626.9,207.07 633.0,213.09 639.1,218.79 645.3,224.21 651.4,229.39 657.5,234.36 663.7,239.14 669.8,243.76 675.9,248.23 682.0,252.55 688.2,256.76 694.3,260.85 700.4,264.83 706.5,268.72 712.7,272.51 718.8,276.22 724.9,279.85 731.0,283.41 737.2,286.90 743.3,290.32 749.4,293.68 755.6,296.98 761.7,300.23 767.8,303.42 773.9,306.56" fill="none" stroke="#2a78d6" stroke-width="2.2"/>
@@ -273,5 +273,5 @@
 <text x="534.0" y="392.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="600" fill="#0f2230" text-anchor="start">Ringed at P = 32: A −0.0292, and B, C −0.0221</text>
 <line x1="24.0" y1="428.0" x2="44.0" y2="428.0" stroke="#2a78d6" stroke-width="2.4"/><text x="50.0" y="432.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#0f2230" text-anchor="start">P = 32 (L up to 32, D = 8,192)</text>
 <line x1="290.0" y1="428.0" x2="310.0" y2="428.0" stroke="#c98d0c" stroke-width="2.4"/><text x="316.0" y="432.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#0f2230" text-anchor="start">P = 64 (L up to 64, D = 16,384)</text>
-<text x="560.0" y="432.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="start">The two values never meet: the gap is always above 15.99.</text>
+<text x="560.0" y="432.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, 'Nirmala UI', 'Noto Sans', sans-serif" font-size="12" font-weight="400" fill="#3f5260" text-anchor="start">The two values never meet: the gap h − u is always above 15.99.</text>
 </svg>

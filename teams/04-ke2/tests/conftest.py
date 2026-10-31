@@ -1,74 +1,61 @@
-"""
-Shared fixtures for the KE2 week-1 tests.
+"""Shared test setup for teams/04-ke2.
 
-Run from the lab repo root:  pytest teams/04-ke2/tests -q
-
-The tests build the byte tables in memory, so they do not depend on the
-generated build/ folder. The tokenizer is found by ke2_common.find_tokenizer_json
-(KE2_TOKENIZER, a sibling clone, the cache, or a pinned download). Tests that
-need it are skipped only if it cannot be found or downloaded.
-
-No decorator lines: pr-guard reads each added line of a pull request with its
-leading plus sign, and a plus sign followed by an at sign and a dotted name
-looks like an email address to its secret scan. So fixtures are registered
-with plain calls below, and parameters come from pytest_generate_tests:
-every test that takes P or kind runs for each value, and a test module can
-add more names in a PARAMS dict.
+* Puts src/, src/proofs and src/determinism on sys.path and makes ``kronecker_embeddings``
+  importable (installed, ``$KRONECKER_SRC``, or a sibling checkout; see ``ke2.upstream``).
+* Finds the pinned BrahmicTokenizer-131K offline (``$KE2_TOKENIZER``, ``$BRAHMIC_TOKENIZER_DIR``,
+  or the Hugging Face cache) and exports ``BRAHMIC_TOKENIZER_DIR`` for the proof tests.
+* Provides the session table fixtures. Tests that need the real tokenizer are skipped without it.
 """
 
-from __future__ import annotations
-
+import os
 import sys
 from pathlib import Path
 
 import pytest
 
 SRC = Path(__file__).resolve().parents[1] / "src"
-if str(SRC) not in sys.path:
-    sys.path.insert(0, str(SRC))
+for p in (SRC / "determinism", SRC / "proofs", SRC):
+    sys.path.insert(0, str(p))
 
-import ke2_common as C  # noqa: E402
+from ke2.config import POS_DIMS, TOKENIZER_SHA256  # noqa: E402
+from ke2.tables import BUILDERS, KINDS  # noqa: E402
+from ke2.tokenizer import load_tokenizer, resolve_tokenizer_path  # noqa: E402
+from ke2.upstream import ensure_kronecker_embeddings  # noqa: E402
 
-DEFAULT_PARAMS = {"P": C.P_VALUES, "kind": C.KINDS}
-
-
-def pytest_generate_tests(metafunc):
-    extra = getattr(metafunc.module, "PARAMS", {})
-    for name in metafunc.fixturenames:
-        values = extra.get(name, DEFAULT_PARAMS.get(name))
-        if values is not None:
-            metafunc.parametrize(name, values)
+ensure_kronecker_embeddings()
 
 
-def tok():
+def _find_tokenizer_dir():
     try:
-        return C.load_tokenizer()
-    except Exception as e:   # no local copy and no network
-        pytest.skip(f"tokenizer not available: {e}")
+        path = resolve_tokenizer_path()
+    except FileNotFoundError:
+        return None
+    return path.parent if (path.parent / "special_tokens_map.json").is_file() else None
 
 
-def pinned(tok):
-    """True when the tokenizer is the pinned BrahmicTokenizer-131K (committed results apply)."""
-    return C.tokenizer_info()["pinned"]
+TOKENIZER_DIR = _find_tokenizer_dir()
+if TOKENIZER_DIR is not None:
+    os.environ.setdefault("BRAHMIC_TOKENIZER_DIR", str(TOKENIZER_DIR))
 
 
-def full(tok):
-    """Untruncated byte lists: {"decode": [...], "raw": [...]}."""
-    return {kind: C.full_bytes(tok, kind) for kind in C.KINDS}
+@pytest.fixture(scope="session")
+def tb():
+    if TOKENIZER_DIR is None:
+        pytest.skip("BrahmicTokenizer-131K not found; set KE2_TOKENIZER to its tokenizer.json")
+    return load_tokenizer(str(TOKENIZER_DIR / "tokenizer.json"), expected_sha256=TOKENIZER_SHA256)
 
 
-def tables(full):
-    """{(kind, P): (byte_buffer, length_buffer)} for the four tables."""
-    return {(kind, P): C.make_table(full[kind], P) for kind in C.KINDS for P in C.P_VALUES}
+@pytest.fixture(scope="session")
+def tables(tb):
+    """Every table, keyed by ``(kind, P)``. Building all four takes about a minute."""
+    return {(kind, P): BUILDERS[kind](tb, P) for P in POS_DIMS for kind in KINDS}
 
 
-def classes(tok, full):
-    specials = C.special_ids(tok)
-    return [C.script_class(b, i in specials) for i, b in enumerate(full["raw"])]
+@pytest.fixture(scope="session")
+def dec32(tables):
+    return tables["decode", 32]
 
 
-tok = pytest.fixture(scope="session")(tok)
-pinned = pytest.fixture(scope="session")(pinned)
-full = pytest.fixture(scope="session")(full)
-tables = pytest.fixture(scope="session")(tables)
-classes = pytest.fixture(scope="session")(classes)
+@pytest.fixture(scope="session")
+def raw32(tables):
+    return tables["raw", 32]
