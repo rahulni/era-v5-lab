@@ -43,7 +43,8 @@ python teams/09-evaluation/harness_lab/run_lab_ckpt.py --run-dir <remote_root>/<
   exported on CPU is checked by file sha256 and keys).
 - **Tokenizer:** `--tokenizer-sha256` must match the file (Team 5's `Artifacts` checks it) and, when the checkpoint's
   `MANIFEST.json` records `env.tokenizer_sha`, that too. The byte table is Team 4's raw table for the same tokenizer
-  (`teams/04-ke2/src/build_tables.py`). C3's normalizer changes some Indic text, so a few prompts do not rebuild their
+  (`teams/04-ke2/src/build_tables.py`). The frozen tokenizer is p1536 sample-v0 (sha256 `e6b93a93…`, TSAI Gate 3
+  notice, 15 Nov; it replaces C3). C3's normalizer changes some Indic text, so a few prompts do not rebuild their
   exact bytes; the scorer counts them ("encode fallbacks") and uses the tokenizer's ids, as #387 did.
 - **Speed** (course rule of 13 Nov): every distinct text is tokenized once in one batched call;
   requests with the same input tokens (the answer letters of one item) share one forward row; rows are length-sorted

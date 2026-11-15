@@ -434,7 +434,7 @@ def team5(argv: list[str]) -> Team5Scorer:
     ap.add_argument("--runtime", type=Path, help="Team 5 runtime.yaml for an arm YAML (default: Team 5's own)")
     ap.add_argument("--resolution", type=Path, help="Team 5 resolution file the run used, for an arm YAML")
     ap.add_argument("--tokenizer", type=Path, required=True, help="the frozen tokenizer.json the run trains with")
-    ap.add_argument("--tokenizer-sha256", required=True, help="its sha256 (C3 sample-v0: 15468e66...02ddc3)")
+    ap.add_argument("--tokenizer-sha256", required=True, help="its sha256 (p1536 sample-v0, frozen 15 Nov: e6b93a93...25a64b)")
     ap.add_argument("--byte-table", type=Path, required=True, help="Team 4's raw table for that tokenizer (.npz)")
     ap.add_argument("--tier", choices=sorted(TIER_ROLE), default="A",
                     help="A: the freeze set (970 items); B: the labelled diagnostics (1,500 items); AB: both")
