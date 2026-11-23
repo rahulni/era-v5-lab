@@ -61,3 +61,86 @@ jobs:
               text = chunk.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
               print(f"::warning title=pytest {n}::{text}")
           EOF
+
+  # Team 8's whole suite, run from teams/08-monitoring as Team 8 runs it, on upstream main and on this branch, both
+  # with a live ClickHouse. Fails if any existing test does worse on the branch, or a new test fails.
+  team8-suite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      clickhouse:
+        image: clickhouse/clickhouse-server:24.8-alpine
+        env:
+          CLICKHOUSE_DB: default
+          CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+        ports:
+          - 8123:8123
+        options: >-
+          --ulimit nofile=262144:262144
+          --health-cmd "wget -q -O /dev/null http://127.0.0.1:8123/ping || exit 1"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          repository: theschoolofai/era-v5-lab
+          ref: main
+          path: upstream-main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install Team 8 test dependencies
+        run: |
+          python -m pip install --disable-pip-version-check pytest numpy pyarrow pyyaml
+          python -m pip install --disable-pip-version-check torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Team 8 suite on upstream main, then on this branch
+        env:
+          CLICKHOUSE_URL: http://127.0.0.1:8123
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: |
+          git -C upstream-main log -1 --format="upstream main %h %s"
+          (cd upstream-main/teams/08-monitoring && python -m pytest -q -p no:cacheprovider -rfEs \
+            --junitxml="$GITHUB_WORKSPACE/main.xml" > "$GITHUB_WORKSPACE/main.log" 2>&1) || true
+          (cd teams/08-monitoring && python -m pytest -q -p no:cacheprovider -rfEs \
+            --junitxml="$GITHUB_WORKSPACE/branch.xml" > "$GITHUB_WORKSPACE/branch.log" 2>&1) || true
+      - name: Compare, as annotations
+        if: always()
+        run: |
+          python - <<'EOF'
+          import collections, sys
+          import xml.etree.ElementTree as ET
+
+          def results(path):
+              out = {}
+              for tc in ET.parse(path).getroot().iter("testcase"):
+                  bad = tc.find("failure") is not None or tc.find("error") is not None
+                  out[f"{tc.get('classname')}::{tc.get('name')}"] = ("failed" if bad else
+                      "skipped" if tc.find("skipped") is not None else "passed")
+              return out
+
+          def note(title, text):
+              text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::warning title={title}::{text}")
+
+          main, branch = results("main.xml"), results("branch.xml")
+          rank = {"passed": 0, "skipped": 1, "failed": 2}
+          worse = sorted(k for k in main if k in branch and rank[branch[k]] > rank[main[k]])
+          gone = sorted(k for k in main if k not in branch)
+          new = sorted(k for k in branch if k not in main)
+          new_failed = [k for k in new if branch[k] == "failed"]
+          count = lambda r: dict(collections.Counter(r.values()))
+          report = [f"upstream main: {len(main)} tests {count(main)}",
+                    f"this branch:   {len(branch)} tests {count(branch)}",
+                    f"existing tests doing worse: {worse or 'none'}",
+                    f"existing tests missing: {gone or 'none'}",
+                    f"new tests: {len(new)} {count({k: branch[k] for k in new})}, failed: {new_failed or 'none'}",
+                    "failing on both: " + ", ".join(k.split("::")[-1] for k in main
+                                                    if main[k] == "failed" and branch.get(k) == "failed")]
+          note("team8 compare", "\n".join(report))
+          for name in ("main", "branch"):
+              tail = open(f"{name}.log", encoding="utf-8", errors="replace").read().splitlines()[-40:]
+              note(f"team8 {name} log", "\n".join(tail))
+          sys.exit(1 if worse or gone or new_failed else 0)
+          EOF
