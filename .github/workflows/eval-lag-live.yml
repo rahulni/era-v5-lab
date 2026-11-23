@@ -34,8 +34,8 @@ jobs:
           --health-timeout 5s
           --health-retries 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
       - name: Install pytest
@@ -46,4 +46,18 @@ jobs:
         env:
           CLICKHOUSE_URL: http://127.0.0.1:8123
           PYTHONDONTWRITEBYTECODE: "1"
-        run: python -m pytest teams/08-monitoring/alarms/tests/test_eval_lag.py -v -rs -p no:cacheprovider
+        run: |
+          set -o pipefail
+          python -m pytest teams/08-monitoring/alarms/tests/test_eval_lag.py -v -rs -p no:cacheprovider --tb=short 2>&1 | tee pytest.log
+      # Job logs need admin rights to read, annotations don't: publish the pytest output as annotations.
+      - name: Test output as annotations
+        if: always()
+        run: |
+          python - <<'EOF'
+          lines = open("pytest.log", encoding="utf-8", errors="replace").read().splitlines()
+          summary = [ln for ln in lines if ln.startswith(("PASSED", "FAILED", "ERROR", "SKIPPED", "="))]
+          chunks = ["\n".join(summary[-40:])] + ["\n".join(lines[i:i + 70]) for i in range(0, len(lines), 70)][-8:]
+          for n, chunk in enumerate(chunks):
+              text = chunk.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::warning title=pytest {n}::{text}")
+          EOF
